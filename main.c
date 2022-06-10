@@ -49,7 +49,7 @@ void set_data(data_shell *datash, char **av)
 	}
 
 	datash->_environ[i] = NULL;
-	datash->pid = aux_itoa(getpid());
+/*	datash->pid = aux_itoa(getpid()); */
 }
 
 /**
@@ -66,7 +66,7 @@ int main(int ac, char **av)
 	data_shell datash;
 	(void) ac;
 
-	signal(SIGINT, get_sigint);
+/*	signal(SIGINT, get_sigint); */
 	set_data(&datash, av);
 	shell_loop(&datash);
 	free_data(&datash);

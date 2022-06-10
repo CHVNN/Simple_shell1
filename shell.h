@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <limits.h>
+#include <string.h>
 
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
@@ -134,6 +135,7 @@ int check_syntax_error(data_shell *datash, char *input);
 /* shell_loop.c */
 char *without_comment(char *in);
 void shell_loop(data_shell *datash);
+void type_prompt();
 
 /* read_line.c */
 char *read_line(int *i_eof);
@@ -144,6 +146,7 @@ void add_nodes(sep_list **head_s, line_list **head_l, char *input);
 void go_next(sep_list **list_s, line_list **list_l, data_shell *datash);
 int split_commands(data_shell *datash, char *input);
 char **split_line(char *input);
+unsigned int word_count(char *input);
 
 /* rep_var.c */
 void check_env(r_var **h, char *in, data_shell *data);
@@ -153,7 +156,7 @@ char *rep_var(char *input, data_shell *datash);
 
 /* get_line.c */
 void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
-ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
+ssize_t get_line(data_shell *datash);
 
 /* exec_line */
 int exec_line(data_shell *datash);
@@ -194,6 +197,7 @@ int exit_shell(data_shell *datash);
 int get_len(int n);
 char *aux_itoa(int n);
 int _atoi(char *s);
+void insertNullByte(char *str, unsigned int index);
 
 /* aux_error1.c */
 char *strcat_cd(data_shell *, char *, char *, char *);
