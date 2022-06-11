@@ -8,10 +8,16 @@
  */
 void shell_loop(data_shell *datash)
 {
+	int (*f)(data_shell *datash);
+
 	while (1)
 	{
 		get_line(datash);
 		datash->args = split_line(datash->input);
+		if (datash->args)
+			f = get_builtin(datash->args[0]);
+		if (f)
+			f(datash);
 		exec_line(datash);
 	}
 }
@@ -23,5 +29,5 @@ void shell_loop(data_shell *datash)
  */
 void type_prompt(void)
 {
-	printf("$ ");
+	write(STDOUT_FILENO, "$ ", 2);
 }

@@ -15,6 +15,10 @@ int exec_line(data_shell *datash)
 		dprintf(STDERR_FILENO, "Error");
 		exit(1);
 	}
+	if (datash->args == NULL)
+	{
+		return (0);
+	}
 	if (!id)
 	{
 		if (execve(datash->args[0], datash->args, NULL) == -1)

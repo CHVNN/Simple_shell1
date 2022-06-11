@@ -12,6 +12,10 @@ char **split_line(char *input)
 	char **tokens;
 	char *tok;
 
+	if (word_count(input) == 0)
+	{
+		return (NULL);
+	}
 	tokens = malloc((word_count(input) + 1) * sizeof(char *));
 	tok = strtok(input, " ");
 	while (tok != NULL)
@@ -32,18 +36,21 @@ char **split_line(char *input)
  */
 unsigned int word_count(char *input)
 {
-	unsigned int count = 0;
+	unsigned int count = 0, isWord = 0;
 	int i = 0;
-	int len;
 
-	len = _strlen(input);
 	while (input[i])
 	{
-		if (input[i] == ' ' &&
-		    (i != 0) &&
-		    (i != (len - 1)))
-			count++;
+		if (input[i] != ' ')
+			isWord = 1;
+		else
+		{
+			if (isWord)
+				count++;
+			isWord = 0;
+		}
 		i++;
 	}
-	return (count + 1);
+	count = isWord ? count + 1 : count;
+	return  (count);
 }
