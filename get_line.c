@@ -11,6 +11,7 @@ ssize_t get_line(data_shell *datash)
 	char *ptr_n, *ptr_t;
 	size_t bufferSize = 0;
 
+	datash->args = NULL;
 	datash->counter++;
 	if (isatty(STDIN_FILENO))
 		type_prompt();

@@ -3,7 +3,7 @@
 /**
  *shell_loop - the most integral part of the shell program controls the running
  *
- *@datash: The basic parameteers of the shell entery
+ *@datash: The basic parameters of the shell entry
  *Return: void
  */
 void shell_loop(data_shell *datash)
