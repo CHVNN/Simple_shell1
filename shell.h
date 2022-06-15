@@ -141,7 +141,7 @@ int check_syntax_error(data_shell *datash, char *input);
 /* shell_loop.c */
 char *without_comment(char *in);
 void shell_loop(data_shell *datash);
-void type_prompt();
+void type_prompt(void);
 
 /* read_line.c */
 char *read_line(int *i_eof);
