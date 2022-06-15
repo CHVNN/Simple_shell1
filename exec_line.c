@@ -12,7 +12,7 @@ int exec_line(data_shell *datash)
 
 	if (id == -1)
 	{
-		dprintf(STDERR_FILENO, "Error");
+		perror("Error: Failed to fork\n");
 		exit(1);
 	}
 	if (datash->args == NULL)
@@ -23,9 +23,7 @@ int exec_line(data_shell *datash)
 	{
 		if (execve(datash->args[0], datash->args, NULL) == -1)
 		{
-			dprintf(STDERR_FILENO,
-				"%s: No such file or directory found\n",
-				datash->av[0]);
+			perror("No such file or directory\n");
 			exit(1);
 		}
 	}
