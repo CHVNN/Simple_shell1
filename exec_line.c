@@ -32,6 +32,10 @@ int exec_line(data_shell *datash)
 	else
 	{
 		wait(&status);
+		if (WIFEXITED(status))
+			datash->status = WEXITSTATUS(status);
+		free(datash->input);
+		freeArgs(datash->args);
 	}
 	return (1);
 }

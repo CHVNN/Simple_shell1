@@ -14,10 +14,15 @@ void shell_loop(data_shell *datash)
 	{
 		get_line(datash);
 		datash->args = split_line(datash->input);
-		if (datash->args)
-			f = get_builtin(datash->args[0]);
+		if (!datash->args)
+			continue;
+		f = get_builtin(datash->args[0]);
 		if (f)
+		{
 			f(datash);
+			free(datash->input);
+			continue;
+		}
 		exec_line(datash);
 	}
 }

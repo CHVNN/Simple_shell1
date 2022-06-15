@@ -45,3 +45,14 @@ int _strlen(const char *s)
 	}
 	return (1 + _strlen((s + 1)));
 }
+
+/**
+ *_strtok - Converts a string into tokens based on delimeter
+ *@str: The queried string
+ *@delim: a string of character to be useed as delimeters
+ *Return: A pointer to the next token if present
+ */
+char *_strtok(char str[], const char *delim)
+{
+	return (strtok(str, delim));
+}

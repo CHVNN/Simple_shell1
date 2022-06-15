@@ -11,6 +11,9 @@ int (*get_builtin(char *cmd))(data_shell * datash)
 
 	builtin_t my_builtins[] = {
 		{"exit", exit_shell},
+		{"env", _env},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
 		{"help", get_help},
 		{"cd", cd_shell},
 		{NULL, NULL}
