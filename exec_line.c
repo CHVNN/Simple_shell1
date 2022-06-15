@@ -23,8 +23,20 @@ int exec_line(data_shell *datash)
 	{
 		if (execve(datash->args[0], datash->args, NULL) == -1)
 		{
-			perror("No such file or directory\n");
-			exit(1);
+			free(datash->input);
+			free_data(datash);
+			if (errno == ENOENT)
+			{
+				get_error(datash, 127);
+				freeArgs(datash->args);
+				exit(127);
+			}
+			if (errno == EACCES)
+			{
+				get_error(datash, 126);
+				freeArgs(datash->args);
+				exit(126);
+			}
 		}
 	}
 	else

@@ -28,15 +28,14 @@ void free_data(data_shell *datash)
  * @av: argument vector
  * Return: no return
  */
-void set_data(data_shell *datash, char **av)
+void set_data(data_shell *datash)
 {
 	unsigned int i;
 
-	datash->av = av;
 	datash->input = NULL;
 	datash->args = NULL;
 	datash->status = 0;
-	datash->counter = 1;
+	datash->counter = 0;
 
 	for (i = 0; environ[i]; i++)
 		;
@@ -67,7 +66,8 @@ int main(int ac, char **av)
 	(void) ac;
 
 /*	signal(SIGINT, get_sigint); */
-	set_data(&datash, av);
+	set_data(&datash);
+	datash.av = av;
 	shell_loop(&datash);
 	free_data(&datash);
 	if (datash.status < 0)
