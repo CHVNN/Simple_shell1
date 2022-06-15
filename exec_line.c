@@ -21,7 +21,7 @@ int exec_line(data_shell *datash)
 	}
 	if (!id)
 	{
-		if (execve(datash->args[0], datash->args, NULL) == -1)
+		if (execve(datash->args[0], datash->args, datash->_environ) == -1)
 		{
 			free(datash->input);
 			free_data(datash);
