@@ -1,3 +1,4 @@
+
 #ifndef _HOLBERTON_
 #define _HOLBERTON_
 
@@ -11,18 +12,20 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <limits.h>
-#include <string.h>
 
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
 #define TOK_DELIM " \t\r\n\a"
 
-/* Points to an array of pointers to strings called the "environment" */
+/* Points to an array of pointers
+* to strings called
+* the "environment" */
 extern char **environ;
 
 
 /**
- * struct data - struct that contains all relevant data on runtime
+ * struct data - struct that contains
+ * all relevant data on runtime
  * @av: argument vector
  * @input: command line written by the user
  * @args: tokens of the command line
@@ -83,7 +86,8 @@ typedef struct r_var_list
 } r_var;
 
 /**
- * struct builtin_s - Builtin struct for command args.
+ * struct builtin_s - Builtin struct for
+ * command args.
  * @name: The name of the command builtin i.e cd, exit, env
  * @f: data type pointer function.
  */
@@ -92,9 +96,6 @@ typedef struct builtin_s
 	char *name;
 	int (*f)(data_shell *datash);
 } builtin_t;
-
-/* main.c */
-void free_data(data_shell *datash);
 
 /* aux_lists.c */
 sep_list *add_sep_node_end(sep_list **head, char sep);
@@ -118,10 +119,6 @@ void _memcpy(void *newptr, const void *ptr, unsigned int size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
 
-/* free.c */
-void freeArgs(char **list);
-void free_mem(data_shell *datash);
-
 /* aux_str2.c */
 char *_strdup(const char *s);
 int _strlen(const char *s);
@@ -142,7 +139,6 @@ int check_syntax_error(data_shell *datash, char *input);
 /* shell_loop.c */
 char *without_comment(char *in);
 void shell_loop(data_shell *datash);
-void type_prompt(void);
 
 /* read_line.c */
 char *read_line(int *i_eof);
@@ -153,7 +149,6 @@ void add_nodes(sep_list **head_s, line_list **head_l, char *input);
 void go_next(sep_list **list_s, line_list **list_l, data_shell *datash);
 int split_commands(data_shell *datash, char *input);
 char **split_line(char *input);
-unsigned int word_count(char *input);
 
 /* rep_var.c */
 void check_env(r_var **h, char *in, data_shell *data);
@@ -163,7 +158,7 @@ char *rep_var(char *input, data_shell *datash);
 
 /* get_line.c */
 void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
-ssize_t get_line(data_shell *datash);
+ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
 
 /* exec_line */
 int exec_line(data_shell *datash);
@@ -204,7 +199,6 @@ int exit_shell(data_shell *datash);
 int get_len(int n);
 char *aux_itoa(int n);
 int _atoi(char *s);
-void insertNullByte(char *str, unsigned int index);
 
 /* aux_error1.c */
 char *strcat_cd(data_shell *, char *, char *, char *);
