@@ -31,7 +31,8 @@ void free_data(data_shell *datash)
 void set_data(data_shell *datash)
 {
 	unsigned int i;
-
+	
+	datash->av = av;
 	datash->input = NULL;
 	datash->args = NULL;
 	datash->status = 0;
