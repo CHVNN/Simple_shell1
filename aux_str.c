@@ -1,90 +1,112 @@
+
 #include "shell.h"
 
 /**
- *_strcpy - copies one string to another
- *
- *@dest: The destination string
- *@src: The source string
- *Return: The destination pointer
- */
-char *_strcpy(char *dest, char *src)
-{
-	int i = 0;
-
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-/**
- *_strcat - concatenates two strings
- *
- *@dest: destination string
- *@src: source of the string
- *Return: An array of charachters concatenating dest and src
+ * _strcat - This is used to
+ * concatenate two strings
+ * @dest: char pointer the dest of the copied str
+ * @src: const char pointer the source of str
+ * Return: the dest
  */
 char *_strcat(char *dest, const char *src)
 {
-	int len_src, len_dest, i;
+	int i;
+	int j;
 
-	len_src = _strlen(src);
-	len_dest = _strlen(dest);
-	for (i = 0 ; i <= len_src ; i++)
+	for (i = 0; dest[i] != '\0'; i++)
+		;
+
+	for (j = 0; src[j] != '\0'; j++)
 	{
-		dest[len_dest + i] = src[i];
+		dest[i] = src[j];
+		i++;
 	}
+
+	dest[i] = '\0';
 	return (dest);
 }
-
 /**
- *_strchr - checks for the first occurence of char c
- *@s: String queried
- *@c: Character to be searched for
- *Return: Pointer to first occurence of char found
+ * *_strcpy - This Copies the string
+ * pointed to by src.
+ * @dest: Type char pointer the dest of the copied str
+ * @src: Type char pointer the source of str
+ * Return: the dest.
  */
-char *_strchr(char *s, char c)
+char *_strcpy(char *dest, char *src)
 {
-	int i;
 
-	char *x;
+	size_t a;
 
-	for (i = 0 ; s[i] != '\0' ; i++)
+	for (a = 0; src[a] != '\0'; a++)
 	{
-		if (s[i] == c)
-		{
-			x = (s + i);
-			return (x);
-		}
+		dest[a] = src[a];
 	}
-	if (s[i] == c)
-	{
-		x = (s + i);
-		return (x);
-	}
-	return (0);
+	dest[a] = '\0';
+
+	return (dest);
 }
-
 /**
- *_strcmp - Compares two strings
- *
- *@s1: Frist string
- *@s2: Second string
- *Return: -15 if s1 is less 0 if the same , and 15 if greater
+ * _strcmp - This is a function that
+ * is to compar
+ * two strings.
+ * @s1: type str compared
+ * @s2: type str compared
+ * Return: Always 0.
  */
 int _strcmp(char *s1, char *s2)
 {
 	int i;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
+	for (i = 0; s1[i] == s2[i] && s1[i]; i++)
+		;
+
+	if (s1[i] > s2[i])
+		return (1);
+	if (s1[i] < s2[i])
+		return (-1);
 	return (0);
+}
+/**
+ * _strchr - This locates the
+ * characters in a string,
+ * @s: string.
+ * @c: character.
+ * Return: the pointer to the first occurrence of the character c.
+ */
+char *_strchr(char *s, char c)
+{
+	unsigned int i = 0;
+
+	for (; *(s + i) != '\0'; i++)
+		if (*(s + i) == c)
+			return (s + i);
+	if (*(s + i) == c)
+		return (s + i);
+	return ('\0');
+}
+/**
+ * _strspn - gets the length of a prefix substring.
+ * @s: initial segment.
+ * @accept: accepted bytes.
+ * Return: the number of accepted bytes.
+ */
+int _strspn(char *s, char *accept)
+{
+	int i, j, bool;
+
+	for (i = 0; *(s + i) != '\0'; i++)
+	{
+		bool = 1;
+		for (j = 0; *(accept + j) != '\0'; j++)
+		{
+			if (*(s + i) == *(accept + j))
+			{
+				bool = 0;
+				break;
+			}
+		}
+		if (bool == 1)
+			break;
+	}
+	return (i);
 }
