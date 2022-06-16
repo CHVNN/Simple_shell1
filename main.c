@@ -65,7 +65,7 @@ int main(int ac, char **av)
 	data_shell datash;
 	(void) ac;
 
-/*	signal(SIGINT, get_sigint); */
+	signal(SIGINT, get_sigint);
 	set_data(&datash);
 	datash.av = av;
 	shell_loop(&datash);

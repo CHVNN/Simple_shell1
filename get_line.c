@@ -18,7 +18,8 @@ ssize_t get_line(data_shell *datash)
 	len = getline(&datash->input, &bufferSize, stdin);
 	if (len == EOF)
 	{
-		exit(98);
+		free_mem(datash);
+		exit(0);
 	}
 	ptr_n = _strchr(datash->input, '\n');
 	ptr_t = _strchr(datash->input, '\t');

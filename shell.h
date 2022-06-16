@@ -120,6 +120,7 @@ char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
 
 /* free.c */
 void freeArgs(char **list);
+void free_mem(data_shell *datash);
 
 /* aux_str2.c */
 char *_strdup(const char *s);

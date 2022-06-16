@@ -16,9 +16,7 @@ int exec_line(data_shell *datash)
 		exit(1);
 	}
 	if (datash->args == NULL)
-	{
 		return (0);
-	}
 	if (!id)
 	{
 		if (execve(datash->args[0], datash->args, datash->_environ) == -1)
