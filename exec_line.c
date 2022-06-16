@@ -1,49 +1,24 @@
 #include "shell.h"
 
 /**
- *exec_line - executes a command
- *@datash: The sytuct containing data required for execution
- *Return: int
+ * exec_line - This enables us to
+ * find all the builtins
+ * and commands
+ *
+ * @datash: data relevant (args)
+ * Return: 1 on success.
  */
 int exec_line(data_shell *datash)
 {
-	int id = fork();
-	int status;
+	int (*builtin)(data_shell *datash);
 
-	if (id == -1)
-	{
-		perror("Error: Failed to fork\n");
-		exit(1);
-	}
-	if (datash->args == NULL)
-		return (0);
-	if (!id)
-	{
-		if (execve(datash->args[0], datash->args, datash->_environ) == -1)
-		{
-			free(datash->input);
-			free_data(datash);
-			if (errno == ENOENT)
-			{
-				get_error(datash, 127);
-				freeArgs(datash->args);
-				exit(127);
-			}
-			if (errno == EACCES)
-			{
-				get_error(datash, 126);
-				freeArgs(datash->args);
-				exit(126);
-			}
-		}
-	}
-	else
-	{
-		wait(&status);
-		if (WIFEXITED(status))
-			datash->status = WEXITSTATUS(status);
-		free(datash->input);
-		freeArgs(datash->args);
-	}
-	return (1);
+	if (datash->args[0] == NULL)
+		return (1);
+
+	builtin = get_builtin(datash->args[0]);
+
+	if (builtin != NULL)
+		return (builtin(datash));
+
+	return (cmd_exec(datash));
 }
