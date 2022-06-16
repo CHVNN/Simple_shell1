@@ -1,38 +1,80 @@
 #include "shell.h"
 
 /**
- *shell_loop - the most integral part of the shell program controls the running
+ * without_comment - This is used to
+ * deletes comments from
+ * the input
  *
- *@datash: The basic parameters of the shell entry
- *Return: void
+ * @in: input string
+ * Return: input without comments
  */
-void shell_loop(data_shell *datash)
+char *without_comment(char *in)
 {
-	int (*f)(data_shell *datash);
+	int i, up_to;
 
-	while (1)
+	up_to = 0;
+	for (i = 0; in[i]; i++)
 	{
-		get_line(datash);
-		datash->args = split_line(datash->input);
-		if (!datash->args)
-			continue;
-		f = get_builtin(datash->args[0]);
-		if (f)
+		if (in[i] == '#')
 		{
-			f(datash);
-			free(datash->input);
-			continue;
+			if (i == 0)
+			{
+				free(in);
+				return (NULL);
+			}
+
+			if (in[i - 1] == ' ' || in[i - 1] == '\t' || in[i - 1] == ';')
+				up_to = i;
 		}
-		exec_line(datash);
 	}
+
+	if (up_to != 0)
+	{
+		in = _realloc(in, i, up_to + 1);
+		in[up_to] = '\0';
+	}
+
+	return (in);
 }
 
 /**
- *type_prompt - Prints the prompt for the shell
+ * shell_loop - This code is meant to
+ * Loop of shell
+ * @datash: data relevant (av, input, args)
  *
- *Return: void
+ * Return: no return.
  */
-void type_prompt(void)
+void shell_loop(data_shell *datash)
 {
-	write(STDOUT_FILENO, "$ ", 2);
+	int loop, i_eof;
+	char *input;
+
+	loop = 1;
+	while (loop == 1)
+	{
+		write(STDIN_FILENO, "^-^ ", 4);
+		input = read_line(&i_eof);
+		if (i_eof != -1)
+		{
+			input = without_comment(input);
+			if (input == NULL)
+				continue;
+
+			if (check_syntax_error(datash, input) == 1)
+			{
+				datash->status = 2;
+				free(input);
+				continue;
+			}
+			input = rep_var(input, datash);
+			loop = split_commands(datash, input);
+			datash->counter += 1;
+			free(input);
+		}
+		else
+		{
+			loop = 0;
+			free(input);
+		}
+	}
 }
