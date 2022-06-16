@@ -1,23 +1,31 @@
 #include "shell.h"
 
 /**
- *rev_string - Reverses strings
- *
- *@s: string being reversed
- *
- *Return: void
+ * rev_string - This code is used
+ * to reverse a string.
+ * @s: input string.
+ * Return: no return.
  */
 void rev_string(char *s)
 {
-	int len, i;
+	int count = 0, i, j;
+	char *str, temp;
 
-	char p;
-
-	len = _strlen(s) - 1;
-	for (i = 0 ; i <= (len / 2) ; i++)
+	while (count >= 0)
 	{
-		p = *(s + i);
-		s[i] = s[(len - i)];
-		s[(len - i)] = p;
+		if (s[count] == '\0')
+			break;
+		count++;
+	}
+	str = s;
+
+	for (i = 0; i < (count - 1); i++)
+	{
+		for (j = i + 1; j > 0; j--)
+		{
+			temp = *(str + j);
+			*(str + j) = *(str + (j - 1));
+			*(str + (j - 1)) = temp;
+		}
 	}
 }
