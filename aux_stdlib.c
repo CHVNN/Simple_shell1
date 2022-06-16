@@ -1,66 +1,103 @@
 #include "shell.h"
 
 /**
- *insertNullByte - inserts a null byte at specified index
- *@str: String of character
- *@index: Index of null byte
- *Return: void
+ * get_len - This code is used
+ * to get the lenght of a number.
+ * @n: type int number.
+ * Return: Lenght of a number.
  */
-void insertNullByte(char *str, unsigned int index)
+int get_len(int n)
 {
-	str[index] = '\0';
-}
+	unsigned int n1;
+	int lenght = 1;
 
+	if (n < 0)
+	{
+		lenght++;
+		n1 = n * -1;
+	}
+	else
+	{
+		n1 = n;
+	}
+	while (n1 > 9)
+	{
+		lenght++;
+		n1 = n1 / 10;
+	}
+
+	return (lenght);
+}
 /**
- *aux_itoa - Converts an integer toa string
- *
- *@n:input integer
- *Return: A pointer to the string of integer n
+ * aux_itoa - This is a function used
+ * to convert int to string.
+ * @n: type int number
+ * Return: String.
  */
 char *aux_itoa(int n)
 {
-	int tmp = n, i, j = 0;
-	char *str, digits[] = "0123456789";
+	unsigned int n1;
+	int lenght = get_len(n);
+	char *buffer;
 
-	for (i = 1; tmp != 0; i++)
-	{
-		tmp /= 10;
-	}
-	str = malloc(sizeof(*str) * (i + 1));
-	if (str == NULL)
+	buffer = malloc(sizeof(char) * (lenght + 1));
+	if (buffer == 0)
 		return (NULL);
-	while (n != 0)
+
+	*(buffer + lenght) = '\0';
+
+	if (n < 0)
 	{
-		str[j] = digits[n % 10];
-		n /= 10;
-		j++;
+		n1 = n * -1;
+		buffer[0] = '-';
 	}
-	str[j] = '\0';
-	rev_string(str);
-	return (str);
+	else
+	{
+		n1 = n;
+	}
+
+	lenght--;
+	do {
+		*(buffer + lenght) = (n1 % 10) + '0';
+		n1 = n1 / 10;
+		lenght--;
+	}
+	while (n1 > 0)
+		;
+	return (buffer);
 }
 
 /**
- * _atoi - change string to an integer
- * @s: input string
- * Return: -1 if it's not a valid number, else the converted number
+ * _atoi - This code is used to
+ * convert a string to an integer.
+ * @s: input string.
+ * Return: integer.
  */
 int _atoi(char *s)
 {
-	register int i = 0;
-	unsigned long num = 0;
+	unsigned int count = 0, size = 0, oi = 0, pn = 1, m = 1, i;
 
-	while (s[i])
+	while (*(s + count) != '\0')
 	{
-		if (s[i] >= '0' && s[i] <= '9')
-			num = num * 10 + s[i] - '0';
-		else
-			return (-1);
-		i++;
+		if (size > 0 && (*(s + count) < '0' || *(s + count) > '9'))
+			break;
+
+		if (*(s + count) == '-')
+			pn *= -1;
+
+		if ((*(s + count) >= '0') && (*(s + count) <= '9'))
+		{
+			if (size > 0)
+				m *= 10;
+			size++;
+		}
+		count++;
 	}
-	if (num > INT_MAX)
+
+	for (i = count - size; i < count; i++)
 	{
-		return (-1);
+		oi = oi + ((*(s + i) - 48) * m);
+		m /= 10;
 	}
-	return (num);
+	return (oi * pn);
 }
