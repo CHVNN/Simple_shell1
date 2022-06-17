@@ -3,7 +3,7 @@
 
 /**
  * swap_char - swaps | and & for
- * non-printed chars
+ * non-printed chars in the code
  *
  * @input: input string
  * @bool: type of swap
