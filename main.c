@@ -28,7 +28,7 @@ void free_data(data_shell *datash)
  * @av: argument vector
  * Return: no return
  */
-void set_data(data_shell *datash, char *av)
+void set_data(data_shell *datash, char **av)
 {
 	unsigned int i;
 	
@@ -67,7 +67,7 @@ int main(int ac, char **av)
 	(void) ac;
 
 	signal(SIGINT, get_sigint);
-	set_data(&datash);
+	set_data(&datash, av);
 	datash.av = av;
 	shell_loop(&datash);
 	free_data(&datash);
