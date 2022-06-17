@@ -28,7 +28,7 @@ void free_data(data_shell *datash)
  * @av: argument vector
  * Return: no return
  */
-void set_data(data_shell *datash)
+void set_data(data_shell *datash, char *av)
 {
 	unsigned int i;
 	
